@@ -181,12 +181,27 @@
   <option value="bodo">Bodo</option>
 </select>
             <button onclick="translateMessage()">Translate</button>
+            <button onclick="testAPI()" style="background-color: #4CAF50; margin-left: 10px;">Test API</button>
         </div>
 
         <div id="output"></div>
     </div>
 
     <script>
+        // Function to test API connectivity
+        function testAPI() {
+            document.getElementById("output").textContent = "Testing API connection...";
+            
+            axios.get('/api/test')
+                .then(function(response) {
+                    document.getElementById("output").textContent = `API Test Result: ${response.data.status}`;
+                })
+                .catch(function(error) {
+                    document.getElementById("output").textContent = "API connection failed. Check console for details.";
+                    console.error("API Test Error:", error);
+                });
+        }
+        
         // Function to handle the translation request
         function translateMessage() {
             const name = document.getElementById("name").value;
@@ -216,7 +231,11 @@
                 
                 if (error.response && error.response.data) {
                     const errorData = error.response.data;
-                    errorMessage += ` Error: ${errorData.error || 'Unknown error'}`;
+                    if (typeof errorData.error === 'object') {
+                        errorMessage += ` Error: ${JSON.stringify(errorData.error)}`;
+                    } else {
+                        errorMessage += ` Error: ${errorData.error || 'Unknown error'}`;
+                    }
                     console.error("Detailed error:", errorData.details || 'No details available');
                 }
                 
