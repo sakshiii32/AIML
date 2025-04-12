@@ -1,13 +1,7 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/l.html"
-    }
+  "rewrites": [
+    { "source": "/api/test", "destination": "/api/test" },
+    { "source": "/api/translate", "destination": "/api/translate" }
   ]
 } 
