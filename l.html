@@ -193,6 +193,9 @@
             const message = document.getElementById("message").value;
             const language = document.getElementById("language").value;
 
+            // Show loading message
+            document.getElementById("output").textContent = "Translating...";
+
             // Use axios to send the translation request to the backend
             axios.get('/api/translate', {
                 params: {
@@ -207,7 +210,17 @@
             .catch(function(error) {
                 // Handle error if translation fails
                 console.error("Error during translation:", error);
-                document.getElementById("output").textContent = "Sorry, there was an error with translation.";
+                
+                // Display detailed error information
+                let errorMessage = "Sorry, there was an error with translation.";
+                
+                if (error.response && error.response.data) {
+                    const errorData = error.response.data;
+                    errorMessage += ` Error: ${errorData.error || 'Unknown error'}`;
+                    console.error("Detailed error:", errorData.details || 'No details available');
+                }
+                
+                document.getElementById("output").textContent = errorMessage;
             });
         }
     </script>
