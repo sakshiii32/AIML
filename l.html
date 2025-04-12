@@ -194,7 +194,7 @@
             const language = document.getElementById("language").value;
 
             // Use axios to send the translation request to the backend
-            axios.get('http://127.0.0.1:8000/translate', {
+            axios.get('/api/translate', {
                 params: {
                     message: message,
                     language: language

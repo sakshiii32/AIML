@@ -28,4 +28,11 @@ async def translate(message: str, language: str):
     except Exception as e:
         return JSONResponse(status_code=400, content={"error": str(e)})
 
-# To run the FastAPI app, you would use `uvicorn langbackend:app --reload` in the terminal
+# For local development
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+# Handler for Vercel
+from mangum import Adapter
+handler = Adapter(app)
