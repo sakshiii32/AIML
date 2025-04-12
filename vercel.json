@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "langbackend.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/translate",
+      "dest": "langbackend.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/l.html"
+    }
+  ]
+} 
